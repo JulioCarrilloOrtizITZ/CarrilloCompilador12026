@@ -42,24 +42,26 @@ public class A extends JFrame {
         btnArchivo.addActionListener(e -> btnArchivoActionPerformed(e));
     }
 
-    private void btnArchivoActionPerformed(ActionEvent e) {
-        JFileChooser archiTxt = new JFileChooser();
-        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Documentos de Texto", "txt");
-        archiTxt.setFileFilter(filtro);
+ private void btnArchivoActionPerformed(ActionEvent e) {
 
-        int resultado = archiTxt.showOpenDialog(this);
-        if (resultado == JFileChooser.APPROVE_OPTION) {
-            File archivo = archiTxt.getSelectedFile();
-            
-            // CORRECCIÓN 2: Uso de try-with-resources para leer eficientemente
-            try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
-                jtextArea1.read(br, null); // Este método carga el archivo directamente al TextArea
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(this, "No se pudo leer el archivo");
-            }
+    JFileChooser archiTxt = new JFileChooser();
+    
+    int resultado = archiTxt.showOpenDialog(this);
+
+    // 2. Si el usuario le dio a "Abrir"
+    if (resultado == JFileChooser.APPROVE_OPTION) {
+        File archivo = archiTxt.getSelectedFile();
+        
+        try {
+
+            BufferedReader br = new BufferedReader(new FileReader(archivo));
+            jtextArea1.read(br, null); // Pone el texto en la pantalla
+            br.close(); // Cerramos el archivo
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error al abrir: " + ex.getMessage());
         }
-        // CORRECCIÓN 3: Se eliminó el "throw new UnsupportedOperationException"
     }
+}
 
     public static void main(String[] args) {
         try {
