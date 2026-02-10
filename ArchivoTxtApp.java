@@ -22,6 +22,14 @@ public class ArchivoTxtApp extends JFrame {
         jtextArea1 = new JTextArea();
         jScrollPane1 = new JScrollPane();
         btnArchivo = new JButton("Selecciona Archivo txt");
+//!configracion area de texto
+        jtextArea1.setColumns(20);
+        jtextArea1.setRows(5);
+        jpanel1.add(jScrollPane1, BorderLayout.CENTER);
+//!evento del boton
+        btnArchivo.addActionListener(e -> btnArchivoActionPerformed(e));
+        
+
 
 
     }
