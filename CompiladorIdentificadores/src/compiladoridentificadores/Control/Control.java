@@ -27,7 +27,7 @@ public class Control {
     public void encontrarIdentificadores(){
         String input = sat.getjtexareaCodigo().getText();
         //\\b[A-Za-z]\\w*\\b
-        String regex="[A-Za-z]\\w*";
+        String regex="[A-Za-z]\\w*|[1-9]\\d*";
         Pattern pattern = Pattern.compile(regex);
         // Elimina comentarios de una línea // y multilínea /* */
         // String codigoLimpio = input.replaceAll("//.*|/\\*.*\\*/", "");
