@@ -10,6 +10,7 @@ package lexeprov;
  */
 public class LexeProv {
     public static void main(String[] args) {
+        String regex="[([a-zA-Z]\\w*)([1-9]\\d*)0|(==|!=|<=|>=)|([-+*/=<>;,.()@])\"]";
         
     }
     
