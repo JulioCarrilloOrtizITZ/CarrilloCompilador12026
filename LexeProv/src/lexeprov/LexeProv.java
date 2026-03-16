@@ -17,7 +17,7 @@ public class LexeProv {
         String EjemploLex ="var x @ y = 42; if x >= 10 then write(x) for i down to 5 do begin end";
         String regex="[([a-zA-Z]\\w*)([1-9]\\d*)0|(==|!=|<=|>=)|([-+*/=<>;,.()@])\"]";
         Pattern pattern=Pattern.compile(regex);
-        Pattern matcher = pattern.compile(EjemploLex);
+        Matcher matcher = pattern.matcher(EjemploLex);
            ArrayList<String> lex= new ArrayList<>();
            while (matcher.find()) {
             lex.add(matcher.group(0));
