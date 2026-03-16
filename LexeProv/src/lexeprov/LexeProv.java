@@ -14,15 +14,19 @@ import java.util.regex.Pattern;
  */
 public class LexeProv {
     public static void main(String[] args) {
-        String EjemploLex ="var x @ y = 42; if x >= 10 then write(x) for i down to 5 do begin end";
-        String regex="[([a-zA-Z]\\w*)([1-9]\\d*)0|(==|!=|<=|>=)|([-+*/=<>;,.()@])\"]";
+        String EjemploLex ="const x=100,y=10.21;var a___2,b_c_2_t,059\n" +
+                           "a__2<<===!==xy-yx==>=>>100000000066\n" +
+                           "if-while+for*then/do%to|downto\n" +
+                           "(x_nueva(y_vieja))(b_c_2_t.\n" +
+                           "fin_2";
+        String regex = "[a-zA-Z_]\\w*|\\d+|==|!=|<=|>=|[-+*/=<>;,.()@]";
         Pattern pattern=Pattern.compile(regex);
         Matcher matcher = pattern.matcher(EjemploLex);
            ArrayList<String> lex= new ArrayList<>();
            while (matcher.find()) {
             lex.add(matcher.group(0));
         }
-          System.out.println("Tokens encontrados (" + lex.size() + "):");
+          System.out.println("Encontrados (" + lex.size() + "):");
         System.out.println(lex);
        
         // Bonus: también lo mostramos bonito
