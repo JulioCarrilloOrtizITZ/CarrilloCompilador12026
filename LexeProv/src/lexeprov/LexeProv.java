@@ -38,7 +38,7 @@ public class LexeProv {
             ultimoFin = matcher.end(); 
         }
         
-          System.out.println("Encontrados (" + lex.size() + "):");
+        System.out.println("Encontrados (" + lex.size() + "):");
         System.out.println(lex);
         System.out.println("\nLista ordenada:");
         for (String t : lex) {
