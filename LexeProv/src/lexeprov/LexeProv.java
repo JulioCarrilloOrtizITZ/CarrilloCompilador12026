@@ -26,23 +26,25 @@ public class LexeProv {
            ArrayList<String> noIdentificados = new ArrayList<>();
            int ultimoFin = 0;
            while (matcher.find()) {
-            lex.add(matcher.group(0));
-        }
-        if (ultimoFin < EjemploLex.length()) {
-            String hueco = EjemploLex.substring(ultimoFin);
-            if (!hueco.trim().isEmpty()) {
-                noIdentificados.add(hueco.trim());
+           if (matcher.start() > ultimoFin) {
+                String hueco = EjemploLex.substring(ultimoFin, matcher.start());
+                for (char c : hueco.toCharArray()) {
+                    if (c != ' ' && c != '\n' && c != '\t') {
+                        noIdentificados.add(String.valueOf(c));
+                    }
+                }
             }
+            lex.add(matcher.group(0));
+            ultimoFin = matcher.end(); 
         }
         
           System.out.println("Encontrados (" + lex.size() + "):");
         System.out.println(lex);
-
         System.out.println("\nLista ordenada:");
         for (String t : lex) {
             System.out.println(t);
         }
-        System.out.println("\nNo identificados / Errores Léxicos (" + noIdentificados.size() + "):");
+        System.out.println("\nNo identificados / Errores Lexicos (" + noIdentificados.size() + "):");
         for (String error : noIdentificados) {
             System.out.println("-> " + error);
         }
