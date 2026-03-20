@@ -23,15 +23,28 @@ public class LexeProv {
    Pattern pattern=Pattern.compile(regex);
         Matcher matcher = pattern.matcher(EjemploLex);
            ArrayList<String> lex= new ArrayList<>();
+           ArrayList<String> noIdentificados = new ArrayList<>();
+           int ultimoFin = 0;
            while (matcher.find()) {
             lex.add(matcher.group(0));
         }
+        if (ultimoFin < EjemploLex.length()) {
+            String hueco = EjemploLex.substring(ultimoFin);
+            if (!hueco.trim().isEmpty()) {
+                noIdentificados.add(hueco.trim());
+            }
+        }
+        
           System.out.println("Encontrados (" + lex.size() + "):");
         System.out.println(lex);
 
         System.out.println("\nLista ordenada:");
         for (String t : lex) {
             System.out.println(t);
+        }
+        System.out.println("\nNo identificados / Errores Léxicos (" + noIdentificados.size() + "):");
+        for (String error : noIdentificados) {
+            System.out.println("-> " + error);
         }
     }
 }
