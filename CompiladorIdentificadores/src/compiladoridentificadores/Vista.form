@@ -15,6 +15,7 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiAbrirActionPerformed"/>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jmiAbrirKeyReleased"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -24,12 +25,21 @@
             <Property name="text" type="java.lang.String" value="Protocolos"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jmiEncontrar">
+            <MenuItem class="javax.swing.JMenuItem" name="jmiLexico">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Encontrar"/>
+                <Property name="text" type="java.lang.String" value="Lexico"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiEncontrarActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiLexicoActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiSintactico">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Sintactico"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiSintacticoActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -133,6 +143,9 @@
                 <Property name="columns" type="int" value="20"/>
                 <Property name="rows" type="int" value="5"/>
               </Properties>
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtexareaCodigoKeyReleased"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

@@ -49,7 +49,8 @@ public class Vista extends javax.swing.JFrame {
         JmenuArchivo = new javax.swing.JMenu();
         jmiAbrir = new javax.swing.JMenuItem();
         jmenuProtocolos = new javax.swing.JMenu();
-        jmiEncontrar = new javax.swing.JMenuItem();
+        jmiLexico = new javax.swing.JMenuItem();
+        jmiSintactico = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,6 +58,11 @@ public class Vista extends javax.swing.JFrame {
 
         jtexareaCodigo.setColumns(20);
         jtexareaCodigo.setRows(5);
+        jtexareaCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtexareaCodigoKeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtexareaCodigo);
 
         jtexareaMensaje.setColumns(20);
@@ -108,19 +114,33 @@ public class Vista extends javax.swing.JFrame {
                 jmiAbrirActionPerformed(evt);
             }
         });
+        jmiAbrir.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jmiAbrirKeyReleased(evt);
+            }
+        });
         JmenuArchivo.add(jmiAbrir);
 
         jMenuBar1.add(JmenuArchivo);
 
         jmenuProtocolos.setText("Protocolos");
 
-        jmiEncontrar.setText("Encontrar");
-        jmiEncontrar.addActionListener(new java.awt.event.ActionListener() {
+        jmiLexico.setText("Lexico");
+        jmiLexico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiEncontrarActionPerformed(evt);
+                jmiLexicoActionPerformed(evt);
             }
         });
-        jmenuProtocolos.add(jmiEncontrar);
+        jmenuProtocolos.add(jmiLexico);
+
+        jmiSintactico.setText("Sintactico");
+        jmiSintactico.setEnabled(false);
+        jmiSintactico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiSintacticoActionPerformed(evt);
+            }
+        });
+        jmenuProtocolos.add(jmiSintactico);
 
         jMenuBar1.add(jmenuProtocolos);
 
@@ -142,10 +162,28 @@ public class Vista extends javax.swing.JFrame {
 
     private void jmiAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAbrirActionPerformed
         ctl.abrirArchivo();
+            if(!jtexareaCodigo.getText().isEmpty()){
+            jmiSintactico.setEnabled(true);
+        }else {
+                jmiSintactico.setEnabled(false);
+            }
     }//GEN-LAST:event_jmiAbrirActionPerformed
 
-    private void jmiEncontrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEncontrarActionPerformed
-        ctl.encontrarIdentificadores();    }//GEN-LAST:event_jmiEncontrarActionPerformed
+    private void jmiSintacticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSintacticoActionPerformed
+       ctl.encontrarIdentificadores();
+    }//GEN-LAST:event_jmiSintacticoActionPerformed
+
+    private void jmiLexicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiLexicoActionPerformed
+        
+    }//GEN-LAST:event_jmiLexicoActionPerformed
+
+    private void jmiAbrirKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmiAbrirKeyReleased
+  
+    }//GEN-LAST:event_jmiAbrirKeyReleased
+
+    private void jtexareaCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtexareaCodigoKeyReleased
+    
+    }//GEN-LAST:event_jtexareaCodigoKeyReleased
 
     /**
      * @param args the command line arguments
@@ -189,7 +227,8 @@ public class Vista extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JMenu jmenuProtocolos;
     private javax.swing.JMenuItem jmiAbrir;
-    private javax.swing.JMenuItem jmiEncontrar;
+    private javax.swing.JMenuItem jmiLexico;
+    private javax.swing.JMenuItem jmiSintactico;
     private javax.swing.JPanel jpanelPrincipal;
     private javax.swing.JTextArea jtexareaCodigo;
     private javax.swing.JTextArea jtexareaMensaje;
