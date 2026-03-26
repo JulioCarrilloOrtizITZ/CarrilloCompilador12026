@@ -93,6 +93,13 @@ public class Control {
           
     public void abrirArchivo(){
         JFileChooser Architxt= new JFileChooser();
+        File archivoPreseleccionado = new File("test/test_lengAutom.zfc");
+        if (archivoPreseleccionado.exists()) {
+        Architxt.setCurrentDirectory(archivoPreseleccionado.getParentFile());
+        Architxt.setSelectedFile(archivoPreseleccionado);
+    }   else {
+        Architxt.setCurrentDirectory(new File("test")); 
+    }
         Architxt.setFileSelectionMode(JFileChooser.FILES_ONLY);
         FileNameExtensionFilter filtro =new FileNameExtensionFilter("Archivos de texto", "txt");
         int tex = Architxt.showOpenDialog(sat);
