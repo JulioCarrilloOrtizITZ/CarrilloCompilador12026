@@ -162,11 +162,13 @@ public class Vista extends javax.swing.JFrame {
 
     private void jmiAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAbrirActionPerformed
         ctl.abrirArchivo();
-            if(!jtexareaCodigo.getText().isEmpty()){
-            jmiSintactico.setEnabled(true);
-        }else {
-                jmiSintactico.setEnabled(false);
-            }
+        if (!jtexareaCodigo.getText().isEmpty()) {
+            boolean sinErrores = ctl.encontrarLexico();
+            jmiSintactico.setEnabled(sinErrores);
+            
+        } else {
+            jmiSintactico.setEnabled(false);
+        }
     }//GEN-LAST:event_jmiAbrirActionPerformed
 
     private void jmiSintacticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSintacticoActionPerformed
@@ -174,7 +176,8 @@ public class Vista extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiSintacticoActionPerformed
 
     private void jmiLexicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiLexicoActionPerformed
-        
+        boolean sinErrores = ctl.encontrarLexico();
+        jmiSintactico.setEnabled(sinErrores);
     }//GEN-LAST:event_jmiLexicoActionPerformed
 
     private void jmiAbrirKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmiAbrirKeyReleased

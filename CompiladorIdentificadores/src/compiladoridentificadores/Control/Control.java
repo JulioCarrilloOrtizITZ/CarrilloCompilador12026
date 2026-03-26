@@ -47,7 +47,7 @@ public class Control {
         
         sat.getjtexareaMensaje().setText(resultado.toString());
     }
-        public void encontrarLexico() {
+        public boolean encontrarLexico() {
         String input = sat.getjtexareaCodigo().getText();
         String regex = "[a-zA-Z_]\\w*|[1-9][0-9]*|0|==|!=|<=|>=|[-+*/=<>;,.()]";
         Pattern pattern = Pattern.compile(regex);
@@ -89,6 +89,7 @@ public class Control {
         resultado.append("Total no identificados: ").append(contErrores);
     }
     sat.getjtexareaMensaje().setText(resultado.toString());
+    return noIdentificados.isEmpty();
     }
           
     public void abrirArchivo(){
