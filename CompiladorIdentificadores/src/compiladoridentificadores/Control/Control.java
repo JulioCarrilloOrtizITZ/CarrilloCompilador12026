@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JFileChooser;
@@ -46,7 +47,50 @@ public class Control {
         
         sat.getjtexareaMensaje().setText(resultado.toString());
     }
-
+        public void encontrarLexico() {
+        String input = sat.getjtexareaCodigo().getText();
+        String regex = "[a-zA-Z_]\\w*|[1-9][0-9]*|0|==|!=|<=|>=|[-+*/=<>;,.()]";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+    
+        ArrayList<String> noIdentificados = new ArrayList<>();
+        int ultimoFin = 0;
+        while (matcher.find()) {
+        if (matcher.start() > ultimoFin) {
+            String hueco = input.substring(ultimoFin, matcher.start());
+            for (char c : hueco.toCharArray()) {
+                if (c != ' ' && c != '\n' && c != '\t' && c != '\r') {
+                    noIdentificados.add(String.valueOf(c));
+                }
+            }
+        }
+        ultimoFin = matcher.end();
+    }
+        if (ultimoFin < input.length()) {
+        String hueco = input.substring(ultimoFin);
+        for (char c : hueco.toCharArray()) {
+            if (c != ' ' && c != '\n' && c != '\t' && c != '\r') {
+                noIdentificados.add(String.valueOf(c));
+            }
+        }
+    }
+    StringBuilder resultado = new StringBuilder();
+    resultado.append("No identificados:\n");
+    
+    if (noIdentificados.isEmpty()) {
+        resultado.append("No se encontraron errores.\n");
+    } else {
+        int contErrores = 0;
+        for (String error : noIdentificados) {
+            contErrores++;
+            resultado.append(contErrores).append(".").append(error).append("\n");
+        }
+        resultado.append("\n-------------\n");
+        resultado.append("Total no identificados: ").append(contErrores);
+    }
+    sat.getjtexareaMensaje().setText(resultado.toString());
+    }
+          
     public void abrirArchivo(){
         JFileChooser Architxt= new JFileChooser();
         Architxt.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -70,6 +114,5 @@ public class Control {
                 }
             }
         }
-        
-    }
+}
 }
