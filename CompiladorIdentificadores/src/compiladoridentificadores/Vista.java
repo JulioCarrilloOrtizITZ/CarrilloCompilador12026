@@ -162,13 +162,7 @@ public class Vista extends javax.swing.JFrame {
 
     private void jmiAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAbrirActionPerformed
         ctl.abrirArchivo();
-        if (!jtexareaCodigo.getText().isEmpty()) {
-            boolean sinErrores = ctl.encontrarLexico();
-            jmiSintactico.setEnabled(sinErrores);
-            
-        } else {
-            jmiSintactico.setEnabled(false);
-        }
+        jmiSintactico.setEnabled(false);
     }//GEN-LAST:event_jmiAbrirActionPerformed
 
     private void jmiSintacticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSintacticoActionPerformed
