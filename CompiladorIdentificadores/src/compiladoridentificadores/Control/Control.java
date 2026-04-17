@@ -72,27 +72,17 @@ public class Control {
         String regex = "([a-zA-Z_]\\w*)|"+
         "([1-9][0-9]*|0)|"+
         "(==|!=|<=|>=)|"+
-        "([-+*/=<>;,.()])";
+        "([-+*/=<>;,.()])|"+   
+        "([^\\s])|"+
+        "(.)";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
 
         ArrayList<String> noIdentificados = new ArrayList<>();
-        int ultimoFin = 0;
         StringBuilder resultado = new StringBuilder();
         resultado.append("Tokens:\n");
         while (matcher.find()) {
-        if (matcher.start() > ultimoFin) {
-            String hueco = input.substring(ultimoFin, matcher.start());
-            for (char c : hueco.toCharArray()) {
-                if (c != ' ' && c != '\n' && c != '\t' && c != '\r') {
-                    noIdentificados.add(String.valueOf(c));
-                    
-                }
-            }
-        }
-        ultimoFin = matcher.end();
-
-        String lexema = matcher.group();
+            String lexema = matcher.group();
             int token = 0;
             String tipo = "";
 
@@ -148,15 +138,13 @@ public class Control {
                 resultado.append("[").append(lexema).append("\t").append(tipo).append("\t").append(token).append("]\n");
                 continue;
             }
-    }
-        if (ultimoFin < input.length()) {
-        String hueco = input.substring(ultimoFin);
-        for (char c : hueco.toCharArray()) {
-            if (c != ' ' && c != '\n' && c != '\t' && c != '\r') {
-                noIdentificados.add(String.valueOf(c));
+            if (matcher.group(5)!=null){
+                noIdentificados.add(lexema);
+                resultado.append("[").append(lexema).append("\tERROR\t-]\n");
+                continue;
             }
-        }
     }
+        
     resultado.append("No identificados:\n");
     
     if (noIdentificados.isEmpty()) {
