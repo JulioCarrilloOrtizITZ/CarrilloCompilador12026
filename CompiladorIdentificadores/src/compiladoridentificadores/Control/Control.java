@@ -22,13 +22,33 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class Control {
     Vista sat;
+    public static final int ID = 15;
+    public static final int NUM = 16;
+    public static final int ASIGNACION = 17;
+    public static final int MAS = 18;
+    public static final int MENOS = 19;
+    public static final int MULTIPLICACION = 20;
+    public static final int DIVISION = 21;
+    public static final int IGUAL = 22;
+    public static final int DIFERENTE = 23;
+    public static final int MENOR_QUE = 24;
+    public static final int MAYOR_QUE = 25;
+    public static final int MENOR_IGUAL = 26;
+    public static final int MAYOR_IGUAL = 27;
+    public static final int PUNTO_Y_COMA = 28;
+    public static final int COMA = 29;
+    public static final int PUNTO = 30;
+    public static final int PARENTESIS_ABIERTO = 31;
+    public static final int PARENTESIS_CERRADO = 32;
+    public static final String[] palabrasReservadas = {"conts", "beging", "for", "while"};
     public Control(Vista sat){
         this.sat=sat;
     }
     public void encontrarIdentificadores(){
         String input = sat.getjtexareaCodigo().getText();
         //\\b[A-Za-z]\\w*\\b
-        String regex="[A-Za-z]\\w*|0|[1-9]\\d*";
+        String regex="[A-Za-z]\\w*|"+
+        "0|[1-9]\\d*";
         Pattern pattern = Pattern.compile(regex);
         // Elimina comentarios de una línea // y multilínea /* */
         // String codigoLimpio = input.replaceAll("//.*|/\\*.*\\*/", "");
@@ -49,22 +69,85 @@ public class Control {
     }
         public boolean encontrarLexico() {
         String input = sat.getjtexareaCodigo().getText();
-        String regex = "[a-zA-Z_]\\w*|[1-9][0-9]*|0|==|!=|<=|>=|[-+*/=<>;,.()]";
+        String regex = "([a-zA-Z_]\\w*)|"+
+        "([1-9][0-9]*|0)|"+
+        "(==|!=|<=|>=)|"+
+        "([-+*/=<>;,.()])";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
-    
+
         ArrayList<String> noIdentificados = new ArrayList<>();
         int ultimoFin = 0;
+        StringBuilder resultado = new StringBuilder();
+        resultado.append("Tokens:\n");
         while (matcher.find()) {
         if (matcher.start() > ultimoFin) {
             String hueco = input.substring(ultimoFin, matcher.start());
             for (char c : hueco.toCharArray()) {
                 if (c != ' ' && c != '\n' && c != '\t' && c != '\r') {
                     noIdentificados.add(String.valueOf(c));
+                    
                 }
             }
         }
         ultimoFin = matcher.end();
+
+        String lexema = matcher.group();
+            int token = 0;
+            String tipo = "";
+
+            // Grupo 1: Identificador o Palabra Reservada
+            if (matcher.group(1) != null) { 
+                boolean esPR = false;
+                for (String pr : palabrasReservadas) {
+                    if (lexema.equals(pr)) {
+                        esPR = true;
+                        break;
+                    }
+                }
+                tipo = esPR ? "PR" : "ID";
+                token = ID; 
+                resultado.append("[").append(lexema).append("\t").append(tipo).append("\t").append(token).append("]\n");
+                continue; 
+            } 
+
+            // Grupo 2: Números
+            if (matcher.group(2) != null) { 
+                tipo = "NUM";
+                token = NUM; 
+                resultado.append("[").append(lexema).append("\t").append(tipo).append("\t").append(token).append("]\n");
+                continue; 
+            }
+
+            // Grupo 3: Relacionales compuestos
+            if (matcher.group(3) != null) {
+                if (lexema.equals("==")) { tipo = "IGUAL"; token = IGUAL; }
+                if (lexema.equals("!=")) { tipo = "DIFERENTE"; token = DIFERENTE; }
+                if (lexema.equals("<=")) { tipo = "MENOR_IGUAL"; token = MENOR_IGUAL; }
+                if (lexema.equals(">=")) { tipo = "MAYOR_IGUAL"; token = MAYOR_IGUAL; }
+                
+                resultado.append("[").append(lexema).append("\t").append(tipo).append("\t").append(token).append("]\n");
+                continue;
+            }
+
+            // Grupo 4: Operadores simples y delimitadores
+            if (matcher.group(4) != null) {
+                if (lexema.equals("<")) { tipo = "MENOR_QUE"; token = MENOR_QUE; }
+                if (lexema.equals(">")) { tipo = "MAYOR_QUE"; token = MAYOR_QUE; }
+                if (lexema.equals("=")) { tipo = "ASIGNACION"; token = ASIGNACION; }
+                if (lexema.equals("+")) { tipo = "MAS"; token = MAS; }
+                if (lexema.equals("-")) { tipo = "MENOS"; token = MENOS; }
+                if (lexema.equals("*")) { tipo = "MULTIPLICACION"; token = MULTIPLICACION; }
+                if (lexema.equals("/")) { tipo = "DIVISION"; token = DIVISION; }
+                if (lexema.equals(";")) { tipo = "PUNTO_Y_COMA"; token = PUNTO_Y_COMA; }
+                if (lexema.equals(",")) { tipo = "COMA"; token = COMA; }
+                if (lexema.equals(".")) { tipo = "PUNTO"; token = PUNTO; }
+                if (lexema.equals("(")) { tipo = "PARENTESIS_ABIERTO"; token = PARENTESIS_ABIERTO; }
+                if (lexema.equals(")")) { tipo = "PARENTESIS_CERRADO"; token = PARENTESIS_CERRADO; }
+                
+                resultado.append("[").append(lexema).append("\t").append(tipo).append("\t").append(token).append("]\n");
+                continue;
+            }
     }
         if (ultimoFin < input.length()) {
         String hueco = input.substring(ultimoFin);
@@ -74,7 +157,6 @@ public class Control {
             }
         }
     }
-    StringBuilder resultado = new StringBuilder();
     resultado.append("No identificados:\n");
     
     if (noIdentificados.isEmpty()) {
