@@ -40,8 +40,7 @@ public class Control {
     public static final int PUNTO = 30;
     public static final int PARENTESIS_ABIERTO = 31;
     public static final int PARENTESIS_CERRADO = 32;
-    public static final String[] palabrasReservadas = {"conts", "beging", "for", "while"};
-    public Control(Vista sat){
+    public static final String[] palabrasReservadas = {"const", "begin", "for", "while", "var", "if", "then", "do", "to", "downto"};    public Control(Vista sat){
         this.sat=sat;
     }
     public void encontrarIdentificadores(){
@@ -77,8 +76,9 @@ public class Control {
         "(.)";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
-
+        
         ArrayList<String> noIdentificados = new ArrayList<>();
+        ArrayList<String> identificados = new ArrayList<>();
         StringBuilder resultado = new StringBuilder();
         resultado.append("Tokens:\n");
         while (matcher.find()) {
@@ -96,7 +96,8 @@ public class Control {
                     }
                 }
                 tipo = esPR ? "PR" : "ID";
-                token = ID; 
+                token = esPR ? 10 : ID;
+                identificados.add(lexema);
                 resultado.append("[").append(lexema).append("\t").append(tipo).append("\t").append(token).append("]\n");
                 continue; 
             } 
@@ -105,6 +106,7 @@ public class Control {
             if (matcher.group(2) != null) { 
                 tipo = "NUM";
                 token = NUM; 
+                identificados.add(lexema);
                 resultado.append("[").append(lexema).append("\t").append(tipo).append("\t").append(token).append("]\n");
                 continue; 
             }
@@ -115,7 +117,7 @@ public class Control {
                 if (lexema.equals("!=")) { tipo = "DIFERENTE"; token = DIFERENTE; }
                 if (lexema.equals("<=")) { tipo = "MENOR_IGUAL"; token = MENOR_IGUAL; }
                 if (lexema.equals(">=")) { tipo = "MAYOR_IGUAL"; token = MAYOR_IGUAL; }
-                
+                identificados.add(lexema);
                 resultado.append("[").append(lexema).append("\t").append(tipo).append("\t").append(token).append("]\n");
                 continue;
             }
@@ -134,7 +136,7 @@ public class Control {
                 if (lexema.equals(".")) { tipo = "PUNTO"; token = PUNTO; }
                 if (lexema.equals("(")) { tipo = "PARENTESIS_ABIERTO"; token = PARENTESIS_ABIERTO; }
                 if (lexema.equals(")")) { tipo = "PARENTESIS_CERRADO"; token = PARENTESIS_CERRADO; }
-                
+                identificados.add(lexema);
                 resultado.append("[").append(lexema).append("\t").append(tipo).append("\t").append(token).append("]\n");
                 continue;
             }
