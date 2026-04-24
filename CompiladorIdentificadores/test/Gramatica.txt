@@ -1,0 +1,20 @@
+1) <Programa> ::= <Bloque>.
+<Programa> -> <Bloque>.
+
+2) <Bloque> ::= <DisConst><Disyvar><DisyProced><Proposicion>
+<Bloue> -> <DisConst><Disyvar><DisyProced><Proposicion>
+
+3)<Condicion> ::= <Expresion><MultE><Expresion>
+<Condicion> -> <Expresion><MultE><Expresion>
+
+4)<Proposición> ::= <MultP>
+<Proposición> -> <MultP>
+
+5)<Expresion> ::= <CicloT>
+<Expresion> -> <CicloT>
+
+6)<Termino> ::= <CicloF>
+<Termino> -> <CicloF>
+
+7)<Factor> ::= <MultF>
+<Factor> -> <MultF>
