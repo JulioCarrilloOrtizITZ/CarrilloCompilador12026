@@ -22,24 +22,24 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class Control {
     Vista sat;
-    public static final int ID = 15;
-    public static final int NUM = 16;
-    public static final int ASIGNACION = 17;
-    public static final int MAS = 18;
-    public static final int MENOS = 19;
-    public static final int MULTIPLICACION = 20;
-    public static final int DIVISION = 21;
-    public static final int IGUAL = 22;
-    public static final int DIFERENTE = 23;
-    public static final int MENOR_QUE = 24;
-    public static final int MAYOR_QUE = 25;
-    public static final int MENOR_IGUAL = 26;
-    public static final int MAYOR_IGUAL = 27;
-    public static final int PUNTO_Y_COMA = 28;
-    public static final int COMA = 29;
-    public static final int PUNTO = 30;
-    public static final int PARENTESIS_ABIERTO = 31;
-    public static final int PARENTESIS_CERRADO = 32;
+    public static final int ID = 100;
+    public static final int NUM = 200;
+    public static final int ASIGNACION = 301;
+    public static final int MAS = 302;
+    public static final int MENOS = 303;
+    public static final int MULTIPLICACION = 304;
+    public static final int DIVISION = 305;
+    public static final int IGUAL = 306;
+    public static final int DIFERENTE = 307;
+    public static final int MENOR_QUE = 308;
+    public static final int MAYOR_QUE = 309;
+    public static final int MENOR_IGUAL =310;
+    public static final int MAYOR_IGUAL = 311;
+    public static final int PUNTO_Y_COMA = 312;
+    public static final int COMA = 313;
+    public static final int PUNTO = 314;
+    public static final int PARENTESIS_ABIERTO = 315;
+    public static final int PARENTESIS_CERRADO = 316;
     public static final String[] palabrasReservadas = {"const", "begin", "for", "while", "var", "if", "then", "do", "to", "downto"};    public Control(Vista sat){
         this.sat=sat;
     }
@@ -76,7 +76,7 @@ public class Control {
         "(.)";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
-        
+        ArrayList<Lexema> lexemas = new ArrayList<>();
         ArrayList<String> noIdentificados = new ArrayList<>();
         ArrayList<String> identificados = new ArrayList<>();
         StringBuilder resultado = new StringBuilder();
@@ -86,20 +86,29 @@ public class Control {
             int token = 0;
             String tipo = "";
 
-            // Grupo 1: Identificador o Palabra Reservada
-            if (matcher.group(1) != null) { 
-                boolean esPR = false;
-                for (String pr : palabrasReservadas) {
-                    if (lexema.equals(pr)) {
-                        esPR = true;
-                        break;
-                    }
+           // Grupo 1: Identificador o Palabra Reservada
+        if (matcher.group(1) != null) {
+            // Buscar si es palabra reservada
+            boolean esPR = false;
+            int tokenPR = 0;
+            for (int i = 0; i < palabrasReservadas.length; i++) {
+                if (lexema.equals(palabrasReservadas[i])) {
+                    esPR = true;
+                    tokenPR = i + 1; 
+                    break;
                 }
-                tipo = esPR ? "PR" : "ID";
-                token = esPR ? 10 : ID;
-                identificados.add(lexema);
-                resultado.append("[").append(lexema).append("\t").append(tipo).append("\t").append(token).append("]\n");
-                continue; 
+            }
+            if (esPR) {
+                tipo = "PR";
+                token = tokenPR;
+            } else {
+                tipo = "ID";
+                token = ID; // 100
+            }
+            lexemas.add(new Lexema(lexema, "ID"));
+            identificados.add(lexema);
+            resultado.append("[").append(lexema).append("\t").append(tipo).append("\t").append(token).append("]\n");
+            continue;
             } 
 
             // Grupo 2: Números
