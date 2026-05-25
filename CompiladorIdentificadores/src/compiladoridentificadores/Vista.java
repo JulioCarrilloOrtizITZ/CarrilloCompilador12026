@@ -4,6 +4,7 @@
  */
 package compiladoridentificadores;
 
+import compiladoridentificadores.Control.Asintaxis;
 import compiladoridentificadores.Control.Control;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -162,11 +163,12 @@ public class Vista extends javax.swing.JFrame {
 
     private void jmiAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAbrirActionPerformed
         ctl.abrirArchivo();
-        jmiSintactico.setEnabled(false);
+        jmiSintactico.setEnabled(true);
     }//GEN-LAST:event_jmiAbrirActionPerformed
 
     private void jmiSintacticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSintacticoActionPerformed
-       ctl.encontrarIdentificadores();
+        ctl.iniciarSintactico();
+       
     }//GEN-LAST:event_jmiSintacticoActionPerformed
 
     private void jmiLexicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiLexicoActionPerformed

@@ -1,0 +1,19 @@
+Factor - {(,id,num}
+Termino - First(CicloF)
+       =First(Factor)
+       ={(,id,num}
+Expresion - First(CicloT)
+       ={(,id,num}
+Proposicion - First(MP)
+       ={begin,id,write,read,call,if,while,for}
+Condicion - First(Expresion)
+       ={(,id,num}
+Bloque - First(DIC)
+       ={Const}+NULL
+       ={Const}+First(DIV)
+       ={Const,var}+NULL
+       ={Const,var}+First(DIP)
+       ={Const,var,Proced}+First(Proposicion)
+       ={Const,var,Proced,begin,id,write,read,call,if,while,for}
+Programa - First(Bloque)
+       ={Const,var,Proced,begin,id,write,read,call,if,while,for}

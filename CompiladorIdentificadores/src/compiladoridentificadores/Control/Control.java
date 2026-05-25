@@ -22,6 +22,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class Control {
     Vista sat;
+    public ArrayList<Lexema> lexemas;
     public static final int ID = 100;
     public static final int NUM = 200;
     public static final int ASIGNACION = 301;
@@ -40,8 +41,11 @@ public class Control {
     public static final int PUNTO = 314;
     public static final int PARENTESIS_ABIERTO = 315;
     public static final int PARENTESIS_CERRADO = 316;
-    public static final String[] palabrasReservadas = {"const", "begin", "for", "while", "var", "if", "then", "do", "to", "downto"};    public Control(Vista sat){
-        this.sat=sat;
+    public static final String[] palabrasReservadas = {"const", "begin", "for", "while", "var", "if", "then", "do", "to", "downto"};    
+    public Control(Vista sat){
+    this.sat=sat;
+    this.lexemas = new ArrayList<>();
+    
     }
     public void encontrarIdentificadores(){
         String input = sat.getjtexareaCodigo().getText();
@@ -49,7 +53,7 @@ public class Control {
         String regex="[A-Za-z]\\w*|"+
         "0|[1-9]\\d*";
         Pattern pattern = Pattern.compile(regex);
-        // Elimina comentarios de una línea // y multilínea /* */
+        // Elimina comentarios  de una línea // y multilínea /* */
         // String codigoLimpio = input.replaceAll("//.*|/\\*.*\\*/", "");
         // Matcher matcher = pattern.matcher(codigoLimpio);
         Matcher matcher = pattern.matcher(input);
@@ -76,7 +80,7 @@ public class Control {
         "(.)";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
-        ArrayList<Lexema> lexemas = new ArrayList<>();
+        this.lexemas.clear();
         ArrayList<String> noIdentificados = new ArrayList<>();
         ArrayList<String> identificados = new ArrayList<>();
         StringBuilder resultado = new StringBuilder();
@@ -203,5 +207,21 @@ public class Control {
                 }
             }
         }
+        
 }
+    public void iniciarSintactico() {
+        if (this.lexemas == null || this.lexemas.isEmpty()) {
+            JOptionPane.showMessageDialog(sat, "No hay tokens para analizar. Ejecuta el Léxico primero.");
+            return;
+        }
+        
+        // Limpiamos la pantalla
+        sat.getjtexareaMensaje().setText("Iniciando Análisis Sintáctico...\n---------------------------\n");
+        
+        // Creamos el analizador sintáctico y le pasamos los lexemas y la Vista
+        Asintaxis sintactico = new Asintaxis(this.lexemas, sat);
+        
+        // Arrancamos el análisis
+        sintactico.programa(); 
+    }
 }
