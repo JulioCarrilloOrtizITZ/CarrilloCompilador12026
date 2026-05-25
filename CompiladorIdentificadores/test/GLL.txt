@@ -1,0 +1,60 @@
+<Programa> -> <Bloque> .
+
+<Cicloid> -> id = num <CLI1>
+<CLI1> -> , <Cicloid>
+<CLI1> -> NULL
+<DIC> -> Const <Cicloid> ;
+<DIC> -> NULL
+<Cicloid2> -> id <CLI2>
+<CLI2> -> , <Cicloid2>
+<CLI2> -> NULL
+<DIV> -> , <Cilcoid2>
+<DIV> -> NULL
+<CicloProced> -> <DIP>
+<DIP> -> Proced id ; <Bloque> ; <CicloProced>
+<DIP> -> NULL
+<Bloque> -> <DIC> <DIV> <DIP> <Proposicion>
+
+<MultE> -> <ME>
+<ME> -> ==
+<ME> -> !=
+<ME> -> <
+<ME> -> >
+<ME> -> <=
+<ME> -> >=
+<Condicion> -> <Expresion> <MultE> <Expresion>
+
+<CicloP> -> <Proposicion> <PR>
+<PR> -> ; <CicloP>
+<PR> -> NULL
+<DIW> -> id
+<DIW> -> num
+<DIE> -> to
+<DIE> -> down
+<MP> -> begin <CicloP> end
+<MP> -> id = <Expresion>
+<MP> -> write <Disw>
+<MP> -> read id
+<MP> -> call id
+<MP> -> if <condicion> then <Proposicion>
+<MP> -> while <condicion> do <Proposicion>
+<MP> -> for id = <Expresion> <Dise> <Expresion> do <Proposicion>
+<Proposicion> -> <MP>
+
+<DIM> -> +
+<DIM> -> -
+<CicloT> -> <Termino> <CLT>
+<CLT> -> NULL
+<CLT> -> <Dism> <CicloT>
+<Expresion> -> <CicloT>
+
+<DID> -> *
+<DID> -> /
+<CicloF> -> <Factor> <CLF>
+<CLF> -> NULL
+<CLF> -> <Disd> <CicloF>
+<Termino> -> <CicloF>
+
+<Factor> -> ( <Expresion> )
+<Factor> -> id
+<Factor> -> num

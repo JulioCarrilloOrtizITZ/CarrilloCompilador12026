@@ -11,7 +11,8 @@ public class Lexema {
 
     public static final String[] palabrasReservadas = {
         "const", "begin", "for", "while", "var", 
-        "if", "then", "do", "to", "downto"
+        "if", "then", "do", "to", "downto", 
+        "procedure", "end", "write", "read", "call"
     };
 
     public Lexema(String dato, String tipo) {
