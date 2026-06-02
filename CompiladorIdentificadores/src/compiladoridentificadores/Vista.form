@@ -22,7 +22,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jmenuProtocolos">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Protocolos"/>
+            <Property name="text" type="java.lang.String" value="Compilador"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jmiLexico">

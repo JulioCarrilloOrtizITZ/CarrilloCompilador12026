@@ -124,7 +124,7 @@ public class Vista extends javax.swing.JFrame {
 
         jMenuBar1.add(JmenuArchivo);
 
-        jmenuProtocolos.setText("Protocolos");
+        jmenuProtocolos.setText("Compilador");
 
         jmiLexico.setText("Lexico");
         jmiLexico.addActionListener(new java.awt.event.ActionListener() {
@@ -163,11 +163,12 @@ public class Vista extends javax.swing.JFrame {
 
     private void jmiAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAbrirActionPerformed
         ctl.abrirArchivo();
-        jmiSintactico.setEnabled(true);
+        jmiSintactico.setEnabled(false);
     }//GEN-LAST:event_jmiAbrirActionPerformed
 
     private void jmiSintacticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSintacticoActionPerformed
         ctl.iniciarSintactico();
+        jmiSintactico.setEnabled(false);
        
     }//GEN-LAST:event_jmiSintacticoActionPerformed
 

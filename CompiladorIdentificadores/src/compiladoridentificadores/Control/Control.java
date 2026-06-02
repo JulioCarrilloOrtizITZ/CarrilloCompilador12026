@@ -109,7 +109,7 @@ public class Control {
                 tipo = "ID";
                 token = ID; // 100
             }
-            lexemas.add(new Lexema(lexema, "ID"));
+                lexemas.add(new Lexema(lexema, tipo,token));
             identificados.add(lexema);
             resultado.append("[").append(lexema).append("\t").append(tipo).append("\t").append(token).append("]\n");
             continue;
@@ -119,7 +119,7 @@ public class Control {
             if (matcher.group(2) != null) { 
                 tipo = "NUM";
                 token = NUM; 
-                identificados.add(lexema);
+                lexemas.add(new Lexema(lexema, tipo, token));
                 resultado.append("[").append(lexema).append("\t").append(tipo).append("\t").append(token).append("]\n");
                 continue; 
             }
@@ -130,7 +130,7 @@ public class Control {
                 if (lexema.equals("!=")) { tipo = "DIFERENTE"; token = DIFERENTE; }
                 if (lexema.equals("<=")) { tipo = "MENOR_IGUAL"; token = MENOR_IGUAL; }
                 if (lexema.equals(">=")) { tipo = "MAYOR_IGUAL"; token = MAYOR_IGUAL; }
-                identificados.add(lexema);
+                lexemas.add(new Lexema(lexema, tipo,token));
                 resultado.append("[").append(lexema).append("\t").append(tipo).append("\t").append(token).append("]\n");
                 continue;
             }
@@ -149,6 +149,7 @@ public class Control {
                 if (lexema.equals(".")) { tipo = "PUNTO"; token = PUNTO; }
                 if (lexema.equals("(")) { tipo = "PARENTESIS_ABIERTO"; token = PARENTESIS_ABIERTO; }
                 if (lexema.equals(")")) { tipo = "PARENTESIS_CERRADO"; token = PARENTESIS_CERRADO; }
+                lexemas.add(new Lexema(lexema, tipo,token));
                 identificados.add(lexema);
                 resultado.append("[").append(lexema).append("\t").append(tipo).append("\t").append(token).append("]\n");
                 continue;

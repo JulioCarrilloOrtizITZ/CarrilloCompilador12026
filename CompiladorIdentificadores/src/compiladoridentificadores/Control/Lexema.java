@@ -15,15 +15,10 @@ public class Lexema {
         "procedure", "end", "write", "read", "call"
     };
 
-    public Lexema(String dato, String tipo) {
+    public Lexema(String dato, String tipo, int token) {
         this.dato = dato;
         this.tipo = tipo;
-        if (tipo.equals("ID")) {
-            this.token = esReservada(dato);
-            this.tipo = (token == 100) ? "ID" : "PR";
-        } else {
-            this.token = 0;
-        }
+        this.token = token;
     }
 
     // Devuelve 100 si es ID normal, o 1-10 si es palabra reservada
