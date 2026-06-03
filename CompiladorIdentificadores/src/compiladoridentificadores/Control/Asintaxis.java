@@ -67,11 +67,12 @@ public class Asintaxis {
         // 314 = PUNTO (.)
         if (tok != 314) {
             reportarError("Falta el punto '.' al final del codigo del programa.");
-        } else {
+        } else if(posicionActual<lexemas.size()) {
+            reportarError("hay un punto antes del final");
+        }
             imprimirMensaje("Correcto: Analisis Sintactico completado sin errores.");
         }
-    }
-
+    
     // <Bloque> -> <DIC> <DIV> <DIP> <Proposicion>
     private int bloque() {
         int status = dic();
