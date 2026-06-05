@@ -77,7 +77,7 @@ public class Control {
         String regex = "([a-zA-Z_]\\w*)|"+
         "([1-9][0-9]*|0)|"+
         "(==|!=|<=|>=)|"+
-        "([-+*/=<>;,.()])|"+   
+        "([-+*/=<>;,.(){}])|"+
         "([^\\s])|"+
         "(.)";
         Pattern pattern = Pattern.compile(regex);
