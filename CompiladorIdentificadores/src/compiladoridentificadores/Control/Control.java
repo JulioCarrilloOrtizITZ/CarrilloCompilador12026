@@ -41,7 +41,9 @@ public class Control {
     public static final int PUNTO = 314;
     public static final int PARENTESIS_ABIERTO = 315;
     public static final int PARENTESIS_CERRADO = 316;
-    public static final String[] palabrasReservadas = {"const", "begin", "for", "while", "var", "if", "then", "do", "to", "downto"};    
+    public static final int LLAVE_ABIERTA = 317;
+    public static final int LLAVE_CERRADA=318;
+    public static final String[] palabrasReservadas = {"const", "begin", "for", "while", "var", "if", "then", "do", "to", "downto","switch"};    
     public Control(Vista sat){
     this.sat=sat;
     this.lexemas = new ArrayList<>();
