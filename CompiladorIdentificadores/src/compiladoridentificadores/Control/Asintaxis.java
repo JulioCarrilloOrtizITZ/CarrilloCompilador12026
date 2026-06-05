@@ -262,6 +262,9 @@ public class Asintaxis {
                     return reportarError("Se esperaba '=' despues de la variable del ciclo for.");
                 }
                 return reportarError("El bucle for debe empezar con un identificador.");
+            case 4://<PROPOSICION>->switch(NUM){<PROPOSICION>}
+                tok=getNextToken();
+                
 
             default:
                 return reportarError("Proposicion invalida. Se encontro un token no esperado.");
